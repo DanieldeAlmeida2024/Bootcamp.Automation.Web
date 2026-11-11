@@ -34,3 +34,7 @@ npx cypress open
 ### Execução
   - Abrir pasta do projeto no terminal e dentro executar o comando "npx cypress open"
   - Será exibido uma tela de abertura do cypress com o dashboard de testes.
+
+## Documentação detalhada (v1.0.0)
+
+[Projeto](docs/projeto/ESPECIFICACAO.md) · [UML](docs/uml/README.md) · [Plano QA](docs/testes/PLANO_DE_TESTES.md) · [Versões](docs/controle/VERSIONAMENTO.md)

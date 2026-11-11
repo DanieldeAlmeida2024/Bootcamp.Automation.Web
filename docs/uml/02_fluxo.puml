@@ -1,0 +1,14 @@
+@startuml
+title Fluxo de aceitação Bootcamp.Automation.Web
+start
+:cy.viewport('iphone-6');
+:Visitar /login;
+:Preencher e-mail/senha;
+:Clicar #btnLogin;
+if (#swal2-title visível e esperado?) then (sim)
+:Caso sucesso;
+else (não)
+:Registrar falha ou mudança no site;
+endif
+stop
+@enduml
