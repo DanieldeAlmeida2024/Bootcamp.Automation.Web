@@ -1,17 +1,20 @@
 @startuml
-title Bootcamp.Automation.Web - fluxo de atividades (conceitual)
-actor Participante
-component "Roteiro de entrada" as Entrada
-component "Validacao" as Validacao
-component "Atividade ou teste" as Atividade
-component "Dependencia externa" as Externa
-Participante --> Entrada
-Entrada --> Validacao
-Validacao --> Atividade
-Atividade --> Externa : quando houver
-Atividade --> Participante : resultado
-note bottom of Atividade
-Diagrama conceitual: nao representa
-classes necessariamente implementadas.
-end note
+title Bootcamp.Automation.Web — fontes e alvos de teste
+actor "Executor QA" as Exec
+component "cypress/e2e/login.cy.js — sucesso" as C0
+Exec --> C0
+component "cypress/e2e/login.cy.js — email inválido" as C1
+Exec --> C1
+component "cypress/e2e/login.cy.js — senha inválida" as C2
+Exec --> C2
+component "cypress/e2e/login.cy.js — campos vazios" as C3
+Exec --> C3
+component "cypress.config.js" as C4
+Exec --> C4
+component "Alvo externo / app" as Ext
+C0 ..> Ext : validar
+C1 ..> Ext : validar
+C2 ..> Ext : validar
+C3 ..> Ext : validar
+C4 ..> Ext : validar
 @enduml
