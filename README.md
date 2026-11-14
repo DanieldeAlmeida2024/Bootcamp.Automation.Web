@@ -11,7 +11,7 @@ npm install
 npx cypress open
 ```
 
-É necessário dispor de uma página de login de testes e atualizar seletores.
+A pasta `fixtures/` contém uma página de login **sintética** com e-mail/senha fictícios. `npm test` verifica o servidor HTTP local e `npm run test:cypress` exercita no navegador estados de sucesso e erro. O CI executa ambos; esse material **não equivale a autenticação real em produção**.
 
 ## Documentação
 
@@ -34,3 +34,14 @@ npx cypress open
 ### Execução
   - Abrir pasta do projeto no terminal e dentro executar o comando "npx cypress open"
   - Será exibido uma tela de abertura do cypress com o dashboard de testes.
+
+## Executar a demonstração local
+
+```bash
+npm ci
+npm test
+npm run demo:web         # terminal 1 (127.0.0.1:3010)
+npm run test:cypress     # terminal 2
+```
+
+O formulário é um simulador proposital para laboratório; a validação de credenciais ocorre no browser, portanto **não serve como modelo de segurança para projetos reais**. Para testar um site real, configure cenários Cypress separados e controle seletores e dados de homologação.
