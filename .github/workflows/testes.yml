@@ -1,0 +1,27 @@
+name: Validar interface de login demonstrativa
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  testes:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Iniciar fixture HTTP
+        run: |
+          node src/servidor-demo.cjs &
+          for i in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:3010/health >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - run: npm run test:cypress
