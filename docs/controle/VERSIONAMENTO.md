@@ -11,3 +11,9 @@
 ### Escopo da limpeza
 
 A remoção vale para as árvores atuais e os novos clones. Arquivos podem permanecer em commits antigos; não foi realizado `git filter-repo`, rebase ou exclusão de histórico.
+
+## Reconciliação documental — 14/11/2026
+
+- Recuperada a especificação específica, matriz de casos e dois diagramas UML da branch documental de 11/11/2026.
+- Os novos arquivos foram adicionados **sem substituir** os documentos atuais de requisitos, arquitetura, testes e versão, que incluem correções de código e CI posteriores.
+- Os documentos antigos receberam ressalva de escopo histórico; a evidência atual de execução continua no GitHub Actions e em `docs/PLANO_TESTES.md`.
