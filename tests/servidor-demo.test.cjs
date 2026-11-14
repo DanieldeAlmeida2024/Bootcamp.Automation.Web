@@ -24,3 +24,15 @@ test('health retorna 200', async () => {
 test('não serve caminhos desconhecidos', async () => {
   assert.equal((await fetch(url + '/outro')).status, 404);
 });
+
+
+test('somente GET / e GET /health são permitidos', async () => {
+  const resposta = await fetch(url, { method: 'POST', body: 'login=teste' });
+  assert.equal(resposta.status, 404);
+  const arquivo = await fetch(url + '/.env');
+  assert.equal(arquivo.status, 404);
+});
+test('HTML não deve ser armazenado em cache compartilhado', async () => {
+  const resposta = await fetch(url);
+  assert.equal(resposta.headers.get('cache-control'), 'no-store');
+});
