@@ -1,6 +1,7 @@
 const { before, after, test } = require('node:test');
 const assert = require('node:assert/strict');
 const { criarServidor } = require('../src/servidor-demo.cjs');
+const { request } = require('node:http');
 let servidor, url;
 before(async () => {
   servidor = criarServidor();
@@ -37,10 +38,24 @@ test('CSP estrita usa script externo permitido, sem JavaScript inline', async ()
 
 test('arquivos arbitrários não são publicados nem por GET nem por POST', async () => {
   for (const caminho of ('/login.js.map', '/.env', '/fixtures/login.html',
-                         '/%2e%2e%2fpackage.json', '/src/servidor-demo.cjs')) {
+                         '/src/servidor-demo.cjs')) {
     const resposta = await fetch(url + caminho);
     assert.equal(resposta.status, 404, caminho);
   }
+  // fetch normaliza segmentos ".." de URL; testar o path codificado
+  // diretamente no request HTTP para não transformar a entrada em "/".
+  const status = await new Promise((resolve, reject) => {
+    const pedido = request({
+      hostname: '127.0.0.1', port: servidor.address().port,
+      path: '/%2e%2e%2fpackage.json', method: 'GET',
+    }, resposta => {
+      resposta.resume();
+      resposta.on('end', () => resolve(resposta.statusCode));
+    });
+    pedido.on('error', reject);
+    pedido.end();
+  });
+  assert.equal(status, 404, 'path percent-encoded fora da allowlist');
   const escrita = await fetch(url + '/login.js', { method: 'POST', body: 'x' });
   assert.equal(escrita.status, 404);
 });
