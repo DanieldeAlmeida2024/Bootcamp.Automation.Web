@@ -37,8 +37,8 @@ test('CSP estrita usa script externo permitido, sem JavaScript inline', async ()
 });
 
 test('arquivos arbitrários não são publicados nem por GET nem por POST', async () => {
-  for (const caminho of ('/login.js.map', '/.env', '/fixtures/login.html',
-                         '/src/servidor-demo.cjs')) {
+  for (const caminho of ['/login.js.map', '/.env', '/fixtures/login.html',
+                         '/src/servidor-demo.cjs']) {
     const resposta = await fetch(url + caminho);
     assert.equal(resposta.status, 404, caminho);
   }
