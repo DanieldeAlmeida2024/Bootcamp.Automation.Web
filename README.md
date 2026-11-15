@@ -23,6 +23,10 @@ npm run test:cypress
 
 O servidor de demonstração é disponibilizado localmente em `127.0.0.1:3010`. Para explorar os testes com a interface Cypress, utilize `npx cypress open`.
 
+## Limites de segurança da fixture HTTP
+
+O servidor didático aceita apenas `GET /`, `GET /login.js` e `GET /health`; não expõe diretórios ou arquivos arbitrários. O JavaScript do formulário fica em arquivo próprio, permitindo uma política CSP `script-src 'self'` sem `unsafe-inline`. As respostas incluem `no-store`, `nosniff` e bloqueio de incorporação em frames. São controles para a **fixture local**, não autenticação real nem homologação de produção.
+
 ## Cobertura
 
 - Verificação da resposta do servidor de demonstração.
